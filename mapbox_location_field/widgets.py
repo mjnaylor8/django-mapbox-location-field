@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.forms import Media
 from django.forms.widgets import TextInput
 
 
@@ -76,15 +77,6 @@ class MapInput(TextInput):
         return default_map_attrs
 
 
-class MapAdminInput(MapInput):
-    """map input, but with custom css and not defined in media js"""
-
-    class Media:
-        css = {
-            "all": ("mapbox_location_field/css/map_input.css",)
-        }
-
-
 class AddressAutoHiddenInput(TextInput):
     """hidden text input which automatically fill itself with address from MapInput"""
     template_name = "mapbox_location_field/address_input.html"
@@ -108,3 +100,19 @@ class AddressAutoHiddenInput(TextInput):
         css = {
             "all": ("mapbox_location_field/css/address_input.css",)
         }
+
+
+class MapAdminInput(MapInput):
+    """map input, but with javascript excluded from media"""
+
+    @property
+    def media(self):
+        return Media(css={"all": ("mapbox_location_field/css/map_input.css",)})
+
+
+class AddressHiddenAdminInput(AddressAutoHiddenInput):
+    """address input, but with javascript excluded from media"""
+
+    @property
+    def media(self):
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
