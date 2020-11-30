@@ -138,6 +138,72 @@ if (!mapboxgl.supported()) {
                     }
                     geocoder.setInput(reverse_name);
                     $(document).trigger("reverse-geocode", [id, reverse_name,]);
+
+
+                        if (data.features[0].context){
+
+                            address_line_all = data.features[0].place_name.split(",");
+                            address_line = address_line_all[0]
+                            var country;
+                            var region;
+                            var district;
+                            var place;
+                            var locality;
+                            var postcode;
+
+                            $.each(data.features[0].context, function(i, v){
+
+                                var dotPosition = v.id.indexOf(".");
+                                var idtext = v.id.substring(0, dotPosition);
+
+
+
+                                switch(idtext) {
+                                    case "country":
+                                        country = v.text;
+                                        break;
+                                    case "region":
+                                        region = v.text;
+                                        break;
+                                    case "district":
+                                        district = v.text;
+                                        break;
+                                    case "place":
+                                        place = v.text;
+                                        break;
+                                    case "locality":
+                                        locality = v.text;
+                                        break;
+                                    case "postcode":
+                                        postcode = v.text;
+                                        break;
+                                    default:
+                                        
+                                }
+                            });
+                        }
+
+                    if (country !== null){
+                        $(document).trigger("reverse-geocode-country", [id, country,])
+                    };
+                    if (region !== null){
+                        $(document).trigger("reverse-geocode-region", [id, region,])
+                    };
+                    if (district !== null){
+                        $(document).trigger("reverse-geocode-district", [id, district,])
+                    };
+                    if (place !== null){
+                        $(document).trigger("reverse-geocode-place", [id, place,])
+                    };
+                    if (locality !== null){
+                        $(document).trigger("reverse-geocode-locality", [id, locality,])
+                    };
+                    if (postcode !== null){
+                        $(document).trigger("reverse-geocode-postcode", [id, postcode,])
+                    };
+                    if (address_line !== null){
+                        $(document).trigger("reverse-geocode-line", [id, address_line,])
+                    };
                 });
 
             });
