@@ -72,11 +72,71 @@ if (!mapboxgl.supported()) {
                 center: map_attrs[id].center,
                 zoom: map_attrs[id].zoom,
             });
+            //start of added for maptype selection
+            var layerList = document.getElementById('menu');
+            var inputs = layerList.getElementsByTagName('input');
+            function switchLayer(layer) {
+                var layerId = layer.target.id;
+                map.setStyle('mapbox://styles/mapbox/' + layerId);
+                }
+                
+                for (var i = 0; i < inputs.length; i++) {
+                inputs[i].onclick = switchLayer;
+            }
+            //end of added for maptype selection
+            
+            //start of added cursor arrow controls
+            //pixels the map pans when the up or down arrow is clicked
+            var deltaDistance = 100;
+            
+            //degrees the map rotates when the left or right arrow is clicked
+            var deltaDegrees = 25;
+            
+            function easing(t) {
+                return t * (2 - t);
+            }
+            
+            map.on('load', function () {
+                map.getCanvas().focus();
+            
+                map.getCanvas().addEventListener(
+                'keydown',
+                function (e) {
+                    e.preventDefault();
+                    if (e.which === 38) {
+                        // up
+                        map.panBy([0, -deltaDistance], {
+                        easing: easing
+                        });
+                    } else if (e.which === 40) {
+                    // down
+                    map.panBy([0, deltaDistance], {
+                    easing: easing
+                    });
+                    } else if (e.which === 37) {
+                    // left
+                    map.easeTo({
+                    bearing: map.getBearing() - deltaDegrees,
+                    easing: easing
+                    });
+                    } else if (e.which === 39) {
+                    // right
+                    map.easeTo({
+                    bearing: map.getBearing() + deltaDegrees,
+                    easing: easing
+                    });
+                    }
+                },
+                true
+                );
+            });
+            //end of added cursor arrow controls
             if (input.val()) {
                 var marker = new mapboxgl.Marker({draggable: false, color: map_attrs[id].marker_color,});
                 marker.setLngLat(map_attrs[id].center)
                     .addTo(map);
                 input.val(replace_order(map_attrs[id].center));
+
             }
 
             var geocoder = new MapboxGeocoder({
@@ -111,11 +171,12 @@ if (!mapboxgl.supported()) {
             }
             geocoder.on("result", function (e) {
                 $("div.mapboxgl-marker.mapboxgl-marker-anchor-center").not(".mapboxgl-user-location-dot").remove();
+
                 input.val(replace_order(e.result.geometry.coordinates));
                 var marker = new mapboxgl.Marker({draggable: false, color: map_attrs[id].marker_color,});
                 marker.setLngLat(e.result.geometry.coordinates)
                     .addTo(map);
-
+                
                 $(document).trigger("reverse-geocode", [id, e.result.place_name,])
             });
 
@@ -127,6 +188,7 @@ if (!mapboxgl.supported()) {
                     .addTo(map);
 
 
+
                 var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + translate_to_string(e.lngLat) + ".json?access_token=" + mapboxgl.accessToken;
                 $.get(url, function (data) {
                     try {
@@ -136,8 +198,7 @@ if (!mapboxgl.supported()) {
                         (e) {
                         reverse_name = "undefined address";
                     }
-                    geocoder.setInput(reverse_name);
-                    $(document).trigger("reverse-geocode", [id, reverse_name,]);
+
 
 
                         if (data.features[0].context){
@@ -204,8 +265,9 @@ if (!mapboxgl.supported()) {
                     if (address_line !== null){
                         $(document).trigger("reverse-geocode-line", [id, address_line,])
                     };
+                    geocoder.setInput(reverse_name);
+                    $(document).trigger("reverse-geocode", [id, reverse_name,]);
                 });
-
             });
         });
 
@@ -215,5 +277,6 @@ if (!mapboxgl.supported()) {
                 geocoders[addressinput.attr("id")].setInput(addressinput.val());
             }
         });
+    
     });
 }
