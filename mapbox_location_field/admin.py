@@ -6,8 +6,7 @@ from .models import LocationField, AddressAutoHiddenField, \
     AddressPostcodeField, AddressPlaceField, AddressLineField
 from .widgets import MapAdminInput, AddressHiddenAdminInput, \
     AddressCountryAdmin, AddressDistrictAdmin, AddressRegionAdmin, \
-    AddressLocalityAdmin, AddressPlaceAdmin, AddressPostcodeAdmin, AddressLineAdmin, \
-    MapInput
+    AddressLocalityAdmin, AddressPlaceAdmin, AddressPostcodeAdmin, AddressLineAdmin
 
 class MapAdmin(admin.ModelAdmin):
     """custom ModelAdmin for LocationField and AddressAutoHiddenField"""
@@ -15,14 +14,13 @@ class MapAdmin(admin.ModelAdmin):
     formfield_overrides = {
         LocationField: {'widget': MapAdminInput},
         AddressAutoHiddenField: {"widget": AddressHiddenAdminInput, },
-        AddressLineField: {"widget": AddressLineAdmin, },
-        AddressPlaceField: {"widget": AddressPlaceAdmin, },
-        AddressLocalityField: {"widget": AddressLocalityAdmin, },
-        AddressRegionField: {"widget": AddressRegionAdmin, },
-        AddressPostcodeField: {"widget": AddressPostcodeAdmin, },
-        AddressDistrictField: {"widget": AddressDistrictAdmin, },
         AddressCountryField: {"widget": AddressCountryAdmin, },
-
+        AddressDistrictField: {"widget": AddressDistrictAdmin, },
+        AddressRegionField: {"widget": AddressRegionAdmin, },
+        AddressLocalityField: {"widget": AddressLocalityAdmin, },
+        AddressPlaceField: {"widget": AddressPlaceAdmin, },
+        AddressPostcodeField: {"widget": AddressPostcodeAdmin, },
+        AddressLineField: {"widget": AddressLineAdmin, },
     }
 
     def change_view(self, request, object_id, form_url='', extra_context=None):

@@ -44,9 +44,9 @@ class LocationField(forms.CharField):
 
     def __init__(self, *args, **kwargs):
         map_attrs = kwargs.pop("map_attrs", None)
-        self.widget = MapInput(map_attrs=map_attrs, )
-
+        
         super().__init__(*args, **kwargs)
+        self.widget = MapInput(map_attrs=map_attrs, )
         self.error_messages = {"required": "Please pick a location, it's required", }
 
     def to_python(self, value):

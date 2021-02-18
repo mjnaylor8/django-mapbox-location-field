@@ -197,6 +197,7 @@ if (!mapboxgl.supported()) {
                         (e) {
                         reverse_name = "undefined address";
                     }
+
                         //make sure there is some context to look at
                         if (data.features[0].context){
                             //get 1st address line
@@ -240,7 +241,9 @@ if (!mapboxgl.supported()) {
                                 }
                             });
                         }
+
                     // now save all the bits of address we have found
+
                     if (country !== null){
                         $(document).trigger("reverse-geocode-country", [id, country,])
                     };
@@ -263,6 +266,7 @@ if (!mapboxgl.supported()) {
                         $(document).trigger("reverse-geocode-line", [id, address_line,])
                     };
                     //set the geocoder contents to the address found
+
                     geocoder.setInput(reverse_name);
                     $(document).trigger("reverse-geocode", [id, reverse_name,]);
                 });
@@ -275,6 +279,5 @@ if (!mapboxgl.supported()) {
                 geocoders[addressinput.attr("id")].setInput(addressinput.val());
             }
         });
-        
     });
 }
