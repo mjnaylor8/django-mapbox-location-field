@@ -2,7 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from .widgets import MapInput, AddressAutoHiddenInput
+from .widgets import MapInput, AddressAutoHiddenInput, AddressCountry, AddressRegion, \
+    AddressDistrict, AddressPlace, AddressLocality, AddressPostcode, AddressLine
 
 
 def reverse_tuple_string(location_string):
