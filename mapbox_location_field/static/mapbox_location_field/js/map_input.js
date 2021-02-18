@@ -74,6 +74,7 @@ if (!mapboxgl.supported()) {
             });
             //start of added for maptype selection
             var layerList = document.getElementById('menu');
+            if (layerList !== null) {
             var inputs = layerList.getElementsByTagName('input');
             function switchLayer(layer) {
                 var layerId = layer.target.id;
@@ -82,7 +83,7 @@ if (!mapboxgl.supported()) {
                 
                 for (var i = 0; i < inputs.length; i++) {
                 inputs[i].onclick = switchLayer;
-            }
+            }}
             //end of added for maptype selection
             
             //start of added cursor arrow controls
@@ -187,8 +188,6 @@ if (!mapboxgl.supported()) {
                 marker.setLngLat(e.lngLat)
                     .addTo(map);
 
-
-
                 var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + translate_to_string(e.lngLat) + ".json?access_token=" + mapboxgl.accessToken;
                 $.get(url, function (data) {
                     try {
@@ -199,12 +198,12 @@ if (!mapboxgl.supported()) {
                         reverse_name = "undefined address";
                     }
 
-
-
+                        //make sure there is some context to look at
                         if (data.features[0].context){
-
+                            //get 1st address line
                             address_line_all = data.features[0].place_name.split(",");
                             address_line = address_line_all[0]
+                            //set up variables for the other bits of address we might get
                             var country;
                             var region;
                             var district;
@@ -212,12 +211,11 @@ if (!mapboxgl.supported()) {
                             var locality;
                             var postcode;
 
+                            //loop through the context getting bits of address
                             $.each(data.features[0].context, function(i, v){
 
                                 var dotPosition = v.id.indexOf(".");
                                 var idtext = v.id.substring(0, dotPosition);
-
-
 
                                 switch(idtext) {
                                     case "country":
@@ -244,6 +242,8 @@ if (!mapboxgl.supported()) {
                             });
                         }
 
+                    // now save all the bits of address we have found
+
                     if (country !== null){
                         $(document).trigger("reverse-geocode-country", [id, country,])
                     };
@@ -265,6 +265,8 @@ if (!mapboxgl.supported()) {
                     if (address_line !== null){
                         $(document).trigger("reverse-geocode-line", [id, address_line,])
                     };
+                    //set the geocoder contents to the address found
+
                     geocoder.setInput(reverse_name);
                     $(document).trigger("reverse-geocode", [id, reverse_name,]);
                 });
@@ -277,6 +279,5 @@ if (!mapboxgl.supported()) {
                 geocoders[addressinput.attr("id")].setInput(addressinput.val());
             }
         });
-    
     });
 }

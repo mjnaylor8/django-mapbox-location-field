@@ -116,3 +116,216 @@ class AddressHiddenAdminInput(AddressAutoHiddenInput):
     @property
     def media(self):
         return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
+    
+class AddressCountry(TextInput):
+    """hidden text input which automatically fill itself with address from MapInput"""
+    template_name = "mapbox_location_field/address_country.html"
+
+    def __init__(self, attrs=None, map_id="map"):
+        self.map_id = map_id
+        super().__init__(attrs)
+        self.label = ""
+
+    def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+        attrs["class"] = attrs.get("class", "") + "js-mapbox-address-country-field"
+        context = super().get_context(name, value, attrs)
+
+        context["map_id"] = self.map_id
+        return context
+
+    class Media:
+        js = ("mapbox_location_field/js/address_input.js",)
+        css = {
+            "all": ("mapbox_location_field/css/address_input.css",)
+        }
+class AddressCountryAdmin(AddressCountry):
+    """address country, but with javascript excluded from media"""
+
+    @property
+    def media(self):
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
+
+class AddressRegion(TextInput):
+    """hidden text input which automatically fill itself with address from MapInput"""
+    template_name = "mapbox_location_field/address_region.html"
+
+    def __init__(self, attrs=None, map_id="map"):
+        self.map_id = map_id
+        super().__init__(attrs)
+        self.label = ""
+
+    def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+        attrs["class"] = attrs.get("class", "") + "js-mapbox-address-region-field"
+        context = super().get_context(name, value, attrs)
+
+        context["map_id"] = self.map_id
+        return context
+
+    class Media:
+        js = ("mapbox_location_field/js/address_input.js",)
+        css = {
+            "all": ("mapbox_location_field/css/address_input.css",)
+        }
+class AddressRegionAdmin(AddressRegion):
+    """address region, but with javascript excluded from media"""
+
+    @property
+    def media(self):
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
+
+class AddressDistrict(TextInput):
+    """hidden text input which automatically fill itself with address from MapInput"""
+    template_name = "mapbox_location_field/address_district.html"
+
+    def __init__(self, attrs=None, map_id="map"):
+        self.map_id = map_id
+        super().__init__(attrs)
+        self.label = ""
+
+    def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+        attrs["class"] = attrs.get("class", "") + "js-mapbox-address-district-field"
+        context = super().get_context(name, value, attrs)
+
+        context["map_id"] = self.map_id
+        return context
+
+    class Media:
+        js = ("mapbox_location_field/js/address_input.js",)
+        css = {
+            "all": ("mapbox_location_field/css/address_input.css",)
+        }
+class AddressDistrictAdmin(AddressDistrict):
+    """address district, but with javascript excluded from media"""
+
+    @property
+    def media(self):
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
+
+class AddressPlace(TextInput):
+    """hidden text input which automatically fill itself with address from MapInput"""
+    template_name = "mapbox_location_field/address_place.html"
+
+    def __init__(self, attrs=None, map_id="map"):
+        self.map_id = map_id
+        super().__init__(attrs)
+        self.label = ""
+
+    def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+        attrs["class"] = attrs.get("class", "") + "js-mapbox-address-place-field"
+        context = super().get_context(name, value, attrs)
+
+        context["map_id"] = self.map_id
+        return context
+
+    class Media:
+        js = ("mapbox_location_field/js/address_input.js",)
+        css = {
+            "all": ("mapbox_location_field/css/address_input.css",)
+        }
+class AddressPlaceAdmin(AddressPlace):
+    """address place, but with javascript excluded from media"""
+
+    @property
+    def media(self):
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
+
+class AddressLocality(TextInput):
+    """hidden text input which automatically fill itself with address from MapInput"""
+    template_name = "mapbox_location_field/address_locality.html"
+
+    def __init__(self, attrs=None, map_id="map"):
+        self.map_id = map_id
+        super().__init__(attrs)
+        self.label = ""
+
+    def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+        attrs["class"] = attrs.get("class", "") + "js-mapbox-address-locality-field"
+        context = super().get_context(name, value, attrs)
+
+        context["map_id"] = self.map_id
+        return context
+
+    class Media:
+        js = ("mapbox_location_field/js/address_input.js",)
+        css = {
+            "all": ("mapbox_location_field/css/address_input.css",)
+        }
+class AddressLocalityAdmin(AddressLocality):
+    """address locality, but with javascript excluded from media"""
+
+    @property
+    def media(self):
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
+
+class AddressPostcode(TextInput):
+    """hidden text input which automatically fill itself with address from MapInput"""
+    template_name = "mapbox_location_field/address_postcode.html"
+
+    def __init__(self, attrs=None, map_id="map"):
+        self.map_id = map_id
+        super().__init__(attrs)
+        self.label = ""
+
+    def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+        attrs["class"] = attrs.get("class", "") + "js-mapbox-address-postcode-field"
+        context = super().get_context(name, value, attrs)
+
+        context["map_id"] = self.map_id
+        return context
+
+    class Media:
+        js = ("mapbox_location_field/js/address_input.js",)
+        css = {
+            "all": ("mapbox_location_field/css/address_input.css",)
+        }
+
+class AddressPostcodeAdmin(AddressPostcode):
+    """address postcode, but with javascript excluded from media"""
+
+    @property
+    def media(self):
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
+
+class AddressLine(TextInput):
+    """hidden text input which automatically fill itself with address from MapInput"""
+    template_name = "mapbox_location_field/address_line.html"
+
+    def __init__(self, attrs=None, map_id="map"):
+        self.map_id = map_id
+        super().__init__(attrs)
+        self.label = ""
+
+    def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+        attrs["class"] = attrs.get("class", "") + "js-mapbox-address-line-field"
+        context = super().get_context(name, value, attrs)
+
+        context["map_id"] = self.map_id
+        return context
+
+    class Media:
+        js = ("mapbox_location_field/js/address_input.js",)
+        css = {
+            "all": ("mapbox_location_field/css/address_input.css",)
+        }
+
+class AddressLineAdmin(AddressLine):
+    """address line, but with javascript excluded from media"""
+
+    @property
+    def media(self):
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
+

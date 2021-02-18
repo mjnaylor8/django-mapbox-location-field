@@ -3,6 +3,13 @@ from django.utils.translation import ugettext_lazy as _
 
 from .forms import AddressAutoHiddenField as AddressAutoHiddenFormField, parse_location, ValidationError
 from .forms import LocationField as LocationFormField
+from .forms import AddressCountryField as AddressCountryFormField
+from .forms import AddressRegionField as AddressRegionFormField
+from .forms import AddressDistrictField as AddressDistrictFormField
+from .forms import AddressPlaceField as AddressPlaceFormField
+from .forms import AddressLocalityField as AddressLocalityFormField
+from .forms import AddressPostcodeField as AddressPostcodeFormField
+from .forms import AddressLineField as AddressLineFormField
 
 
 class LocationField(models.CharField):
@@ -82,5 +89,139 @@ class AddressAutoHiddenField(models.TextField):
     def formfield(self, **kwargs):
         defaults = {'form_class': AddressAutoHiddenFormField}
         defaults.update(kwargs)
+        
+class AddressCountryField(models.TextField):
+    """custom model field for storing address country"""
+    description = _("Address field which automatically fill with address from LocationField.")
+
+    def __init__(self, *args, **kwargs):
+        self.map_id = kwargs.pop("map_id", "map")
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs["map_id"] = self.map_id
+        return name, path, args, kwargs
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': AddressCountryFormField}
+        defaults.update(kwargs)
+        defaults.update({"map_id": self.map_id})
+        return models.Field.formfield(self, **defaults)
+
+class AddressRegionField(models.TextField):
+    """custom model field for storing address Region"""
+    description = _("Address field which automatically fill with address from LocationField.")
+
+    def __init__(self, *args, **kwargs):
+        self.map_id = kwargs.pop("map_id", "map")
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs["map_id"] = self.map_id
+        return name, path, args, kwargs
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': AddressRegionFormField}
+        defaults.update(kwargs)
+        defaults.update({"map_id": self.map_id})
+        return models.Field.formfield(self, **defaults)
+
+class AddressDistrictField(models.TextField):
+    """custom model field for storing address District"""
+    description = _("Address field which automatically fill with address from LocationField.")
+
+    def __init__(self, *args, **kwargs):
+        self.map_id = kwargs.pop("map_id", "map")
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs["map_id"] = self.map_id
+        return name, path, args, kwargs
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': AddressDistrictFormField}
+        defaults.update(kwargs)
+        defaults.update({"map_id": self.map_id})
+        return models.Field.formfield(self, **defaults)
+
+
+class AddressPlaceField(models.TextField):
+    """custom model field for storing address Place"""
+    description = _("Address field which automatically fill with address from LocationField.")
+
+    def __init__(self, *args, **kwargs):
+        self.map_id = kwargs.pop("map_id", "map")
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs["map_id"] = self.map_id
+        return name, path, args, kwargs
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': AddressPlaceFormField}
+        defaults.update(kwargs)
+        defaults.update({"map_id": self.map_id})
+        return models.Field.formfield(self, **defaults)
+
+class AddressLocalityField(models.TextField):
+    """custom model field for storing address Locality"""
+    description = _("Address field which automatically fill with address from LocationField.")
+
+    def __init__(self, *args, **kwargs):
+        self.map_id = kwargs.pop("map_id", "map")
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs["map_id"] = self.map_id
+        return name, path, args, kwargs
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': AddressLocalityFormField}
+        defaults.update(kwargs)
+        defaults.update({"map_id": self.map_id})
+        return models.Field.formfield(self, **defaults)
+
+class AddressPostcodeField(models.TextField):
+    """custom model field for storing address Postcode"""
+    description = _("Address field which automatically fill with address from LocationField.")
+
+    def __init__(self, *args, **kwargs):
+        self.map_id = kwargs.pop("map_id", "map")
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs["map_id"] = self.map_id
+        return name, path, args, kwargs
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': AddressPostcodeFormField}
+        defaults.update(kwargs)
+        defaults.update({"map_id": self.map_id})
+        return models.Field.formfield(self, **defaults)
+
+class AddressLineField(models.TextField):
+    """custom model field for storing address Line"""
+    description = _("Address field which automatically fill with address from LocationField.")
+
+    def __init__(self, *args, **kwargs):
+        self.map_id = kwargs.pop("map_id", "map")
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs["map_id"] = self.map_id
+        return name, path, args, kwargs
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': AddressLineFormField}
+        defaults.update(kwargs)
+        defaults.update({"map_id": self.map_id})
+        return models.Field.formfield(self, **defaults)
         defaults.update({"map_id": self.map_id})
         return models.Field.formfield(self, **defaults)

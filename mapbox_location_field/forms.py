@@ -60,5 +60,75 @@ class AddressAutoHiddenField(forms.CharField):
     def __init__(self, *args, **kwargs):
         map_id = kwargs.pop("map_id", "map")
         self.widget = AddressAutoHiddenInput(map_id=map_id)
+        
+class AddressCountryField(forms.CharField):
+    """custom form field which uses AddressCountry"""
+    widget = AddressCountry()
+
+    def __init__(self, *args, **kwargs):
+        map_id = kwargs.pop("map_id", "map")
+        self.widget = AddressCountry(map_id=map_id)
+        super().__init__(*args, **kwargs)
+        self.label = ""
+
+class AddressRegionField(forms.CharField):
+    """custom form field which uses AddressRegion"""
+    widget = AddressRegion()
+
+    def __init__(self, *args, **kwargs):
+        map_id = kwargs.pop("map_id", "map")
+        self.widget = AddressRegion(map_id=map_id)
+        super().__init__(*args, **kwargs)
+        self.label = ""
+
+class AddressDistrictField(forms.CharField):
+    """custom form field which uses AddressDistrict"""
+    widget = AddressDistrict()
+
+    def __init__(self, *args, **kwargs):
+        map_id = kwargs.pop("map_id", "map")
+        self.widget = AddressDistrict(map_id=map_id)
+        super().__init__(*args, **kwargs)
+        self.label = ""
+
+class AddressPlaceField(forms.CharField):
+    """custom form field which uses AddressPlace"""
+    widget = AddressPlace()
+
+    def __init__(self, *args, **kwargs):
+        map_id = kwargs.pop("map_id", "map")
+        self.widget = AddressPlace(map_id=map_id)
+        super().__init__(*args, **kwargs)
+        self.label = ""
+
+class AddressLocalityField(forms.CharField):
+    """custom form field which uses AddressLocality"""
+    widget = AddressLocality()
+
+    def __init__(self, *args, **kwargs):
+        map_id = kwargs.pop("map_id", "map")
+        self.widget = AddressLocality(map_id=map_id)
+        super().__init__(*args, **kwargs)
+        self.label = ""
+
+class AddressPostcodeField(forms.CharField):
+    """custom form field which uses AddressPostcode"""
+    widget = AddressPostcode()
+
+    def __init__(self, *args, **kwargs):
+        map_id = kwargs.pop("map_id", "map")
+        self.widget = AddressPostcode(map_id=map_id)
+        super().__init__(*args, **kwargs)
+        self.label = ""
+
+class AddressLineField(forms.CharField):
+    """custom form field which uses AddressLine"""
+    widget = AddressLine()
+
+    def __init__(self, *args, **kwargs):
+        map_id = kwargs.pop("map_id", "map")
+        self.widget = AddressLine(map_id=map_id)
+        super().__init__(*args, **kwargs)
+        self.label = ""
         super().__init__(*args, **kwargs)
         self.label = ""
